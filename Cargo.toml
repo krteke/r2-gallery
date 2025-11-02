@@ -30,24 +30,29 @@ argon2 = { version = "0.5.3", features = [
     "std",
 ], optional = true }
 anyhow = { version = "1.0.100", optional = true }
+subtle = { version = "2.6.1", optional = true }
+chrono = { version = "0.4.42", optional = true }
+time = { version = "0.3.44", optional = true }
 futures = { version = "0.3.31" }
 web-sys = { version = "0.3.82", features = ["Window", "Location"] }
+gloo-storage = { version = "0.3.0" }
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
-desktop = ["dioxus/desktop"]
-mobile = ["dioxus/mobile"]
 server = [
     "dioxus/server",
     "dep:axum",
     "dep:tokio",
     "dep:dotenvy",
     "dep:tracing-subscriber",
-    "dep:rpassword",
     "dep:jsonwebtoken",
     "dep:secrecy",
     "dep:axum-extra",
     "dep:argon2",
     "dep:anyhow",
+    "dep:subtle",
+    "dep:chrono",
+    "dep:time",
 ]
+build-tools = ["dep:argon2", "dep:rpassword"]

@@ -5,12 +5,11 @@ use crate::views::App;
 mod components;
 #[cfg(feature = "server")]
 mod config;
-mod server;
-#[cfg(feature = "server")]
-mod state;
-mod views;
-mod utils;
 mod models;
+mod server;
+mod state;
+mod utils;
+mod views;
 
 fn main() {
     #[cfg(feature = "web")]
@@ -29,9 +28,8 @@ fn main() {
 #[cfg(feature = "server")]
 async fn launch_server(component: fn() -> Element) {
     use std::sync::Arc;
-    use axum::{extract::Request, middleware::Next, routing::post};
 
-    use crate::{config::Config, server::login_handler, state::AppState};
+    use crate::{config::Config, server::router, state::app::AppState};
 
     dotenvy::dotenv().ok();
 
@@ -43,15 +41,9 @@ async fn launch_server(component: fn() -> Element) {
     let address = dioxus::cli_config::fullstack_address_or_localhost();
     tracing::debug!("Starting server at {}", address);
     let listener = tokio::net::TcpListener::bind(address).await.unwrap();
-    let router = axum::Router::new()
-        .route("/api/login", post(login_handler))
-        .with_state(app_state)
-        .serve_dioxus_application(ServeConfig::default(), component)
-        // .layer(axum::middleware::from_fn(
-        //     |request: Request, next: Next| async move {
 
-        //     }
-        // ))
+    let router = router(app_state)
+        .serve_dioxus_application(ServeConfig::default(), component)
         .into_make_service();
 
     axum::serve(listener, router).await.unwrap();

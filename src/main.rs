@@ -41,7 +41,7 @@ async fn launch_server(component: fn() -> Element) {
     tracing::debug!("Created tracing subscriber");
 
     let config = Config::load_config();
-    let app_state = Arc::new(AppState::new(config));
+    let app_state = Arc::new(AppState::new(config).await);
 
     let address = dioxus::cli_config::fullstack_address_or_localhost();
     tracing::debug!("Starting server at {}", address);

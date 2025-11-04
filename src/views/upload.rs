@@ -3,10 +3,10 @@ use dioxus::prelude::*;
 use crate::components::AuthGuard;
 
 #[component]
-pub fn Home() -> Element {
+pub fn Upload() -> Element {
     rsx! {
         AuthGuard {
-            div { "Welcome!" }
+            div { "Upload" }
         }
     }
 }

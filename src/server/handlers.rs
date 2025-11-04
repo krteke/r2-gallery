@@ -1,4 +1,5 @@
 mod login;
+mod upload;
 mod verify;
 
 pub use login::login_handler;

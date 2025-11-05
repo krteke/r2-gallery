@@ -100,6 +100,7 @@ pub fn Login() -> Element {
                         id: "username",
                         autocomplete: "username",
                         placeholder: "请输入用户名",
+                        value: "{username}",
                         oninput: move |event| {
                             let value = event.value();
                             is_username_empty.set(value.trim().is_empty());
@@ -114,6 +115,7 @@ pub fn Login() -> Element {
                             placeholder: "请输入密码",
                             r#type: if is_password_visible() { "text" } else { "password" },
                             autocomplete: "current-password",
+                            value: "{password}",
                             oninput: move |event| {
                                 let value = event.data.value();
                                 is_password_empty.set(value.trim().is_empty());

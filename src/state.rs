@@ -27,6 +27,8 @@ pub mod app {
 
             let r2_client = Client::new(&sdk_config);
 
+            tracing::info!("R2 client initialized");
+
             AppState {
                 username: config.username,
                 password: config.password,

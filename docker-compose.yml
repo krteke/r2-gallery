@@ -5,20 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
-    environment:
-      - USERNAME="your username"
-      - PASSWORD="your password"
-      - JWT_SECRET="your jwt secret"
-      - RUST_LOG="info"
-      - R2_ACCOUNT_ID="your_account_id"
-      - R2_REGION="auto"
-      - R2_BUCKET_NAME="your_bucket_name"
-      - R2_URL="your access url"
-      - PORT=your port
-
+    env_file:
+      - .env
     ports:
-      - "your host port:your port"
-
-    container_name: your container name
+      - "${HOST_PORT}:${PORT}"
+    container_name: ${CONTAINER_NAME}
     restart: unless-stopped
